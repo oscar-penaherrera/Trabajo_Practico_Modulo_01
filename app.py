@@ -172,111 +172,100 @@ elif modulo == "Ejercicio 02":
 
 elif modulo == "Ejercicio 03":
    
-      import streamlit as st
-import pandas as pd
-
-# ---------------------------------------------------------
-# 1. DEFINICIÓN DE LAS FUNCIONES
-# Define aquí funciones según tu área de trabajo/estudio.
-# ---------------------------------------------------------
-
-def calcular_descuento(precio: float, porcentaje: float) -> float:
-    """Calcula el precio final tras aplicar un descuento."""
-    return precio - (precio * (porcentaje / 100))
-
-def calcular_interes_simple(capital: float, tasa: float, tiempo: float) -> float:
-    """Calcula el interés simple generado."""
-    return capital * (tasa / 100) * tiempo
-
-# ---------------------------------------------------------
-# INICIALIZACIÓN DEL HISTORIAL (st.session_state)
-# ---------------------------------------------------------
-if "historico" not in st.session_state:
-    # Creamos un DataFrame vacío para almacenar los resultados
-    st.session_state.historico = pd.DataFrame(
-        columns=["Función", "Parámetros", "Resultado"]
-    )
-
-# ---------------------------------------------------------
-# INTERFAZ Y WIDGETS DE STREAMLIT
-# ---------------------------------------------------------
-st.title(" Aplicación Multitarea - Streamlit")
-st.write("Selecciona una función, ingresa los parámetros requeridos y guarda los resultados.")
-
-# Widget 1: Selector de función
-funcion_seleccionada = st.selectbox(
-    "1. Selecciona la función a ejecutar:",
-    ("Calculadora de Descuentos", "Cálculo de Interés Simple")
-)
-
-st.divider()
-
-# Widgets dinámicos según la función seleccionada
-if funcion_seleccionada == "Calculadora de Descuentos":
-    st.subheader("Parámetros: Descuento")
-    
-    # Widgets 2 y 3: Entradas numéricas
-    precio_input = st.number_input("Precio original ($):", min_value=0.0, value=100.0, step=10.0)
-    descuento_input = st.number_input("Porcentaje de descuento (%):", min_value=0.0, max_value=100.0, value=15.0)
-    
-    # Widget 4: Botón para ejecutar
-    if st.button("Ejecutar y Guardar"):
-        resultado = calcular_descuento(precio_input, descuento_input)
-        
-        # Widget 5: Mostrar resultado en pantalla
-        st.success(f"**Resultado:** El precio con descuento es **${resultado:.2f}**")
-        
-        # 6. Guardar en el histórico
-        nuevo_registro = {
-            "Función": funcion_seleccionada,
-            "Parámetros": f"Precio: ${precio_input}, Desc: {descuento_input}%",
-            "Resultado": f"${resultado:.2f}"
-        }
-        # Añadir la nueva fila al DataFrame guardado en la sesión
-        st.session_state.historico = pd.concat(
-            [st.session_state.historico, pd.DataFrame([nuevo_registro])],
-            ignore_index=True
-        )
-
-elif funcion_seleccionada == "Cálculo de Interés Simple":
-    st.subheader("Parámetros: Interés Simple")
-    
-    capital_input = st.number_input("Capital inicial ($):", min_value=0.0, value=1000.0, step=100.0)
-    tasa_input = st.number_input("Tasa de interés anual (%):", min_value=0.0, value=5.0, step=0.5)
-    tiempo_input = st.number_input("Tiempo (años):", min_value=0.0, value=1.0, step=0.5)
-    
-    if st.button("Ejecutar y Guardar"):
-        resultado = calcular_interes_simple(capital_input, tasa_input, tiempo_input)
-        
-        st.success(f"**Resultado:** El interés generado es de **${resultado:.2f}**")
-        
-        nuevo_registro = {
-            "Función": funcion_seleccionada,
-            "Parámetros": f"Capital: ${capital_input}, Tasa: {tasa_input}%, Años: {tiempo_input}",
-            "Resultado": f"${resultado:.2f}"
-        }
-        st.session_state.historico = pd.concat(
-            [st.session_state.historico, pd.DataFrame([nuevo_registro])],
-            ignore_index=True
-        )
-
       # ---------------------------------------------------------
-      # MUESTRA DEL HISTÓRICO
+      # 1. Importar funciones
       # ---------------------------------------------------------
+      
+      from libreria_funciones_proyecto1.py import 
+      # ---------------------------------------------------------
+      # INICIALIZACIÓN DEL HISTORIAL (st.session_state)
+      # ---------------------------------------------------------
+      if "historico" not in st.session_state:
+          # Creamos un DataFrame vacío para almacenar los resultados
+          st.session_state.historico = pd.DataFrame(
+              columns=["Función", "Parámetros", "Resultado"]
+          )
+      
+      # ---------------------------------------------------------
+      # INTERFAZ Y WIDGETS DE STREAMLIT
+      # ---------------------------------------------------------
+      st.title(" Aplicación Multitarea - Streamlit")
+      st.write("Selecciona una función, ingresa los parámetros requeridos y guarda los resultados.")
+      
+      # Widget 1: Selector de función
+      funcion_seleccionada = st.selectbox(
+          "1. Selecciona la función a ejecutar:",
+          ("Calculadora de Descuentos", "Cálculo de Interés Simple")
+      )
+      
       st.divider()
-      st.subheader(" Tabla Histórica de Resultados")
       
-      # Widget 6: Mostrar el DataFrame en pantalla
-      st.dataframe(st.session_state.historico, use_container_width=True)
+      # Widgets dinámicos según la función seleccionada
+      if funcion_seleccionada == "Calculadora de Descuentos":
+          st.subheader("Parámetros: Descuento")
+          
+          # Widgets 2 y 3: Entradas numéricas
+          precio_input = st.number_input("Precio original ($):", min_value=0.0, value=100.0, step=10.0)
+          descuento_input = st.number_input("Porcentaje de descuento (%):", min_value=0.0, max_value=100.0, value=15.0)
+          
+          # Widget 4: Botón para ejecutar
+          if st.button("Ejecutar y Guardar"):
+              resultado = calcular_descuento(precio_input, descuento_input)
+              
+              # Widget 5: Mostrar resultado en pantalla
+              st.success(f"**Resultado:** El precio con descuento es **${resultado:.2f}**")
+              
+              # 6. Guardar en el histórico
+              nuevo_registro = {
+                  "Función": funcion_seleccionada,
+                  "Parámetros": f"Precio: ${precio_input}, Desc: {descuento_input}%",
+                  "Resultado": f"${resultado:.2f}"
+              }
+              # Añadir la nueva fila al DataFrame guardado en la sesión
+              st.session_state.historico = pd.concat(
+                  [st.session_state.historico, pd.DataFrame([nuevo_registro])],
+                  ignore_index=True
+              )
       
-      # Opción adicional: Limpiar el historial
-      if not st.session_state.historico.empty:
-          if st.button("Limpiar Historial"):
-              st.session_state.historico = pd.DataFrame(columns=["Función", "Parámetros", "Resultado"])
-              st.rerun()
-
-
-
-
-
-
+      elif funcion_seleccionada == "Cálculo de Interés Simple":
+          st.subheader("Parámetros: Interés Simple")
+          
+          capital_input = st.number_input("Capital inicial ($):", min_value=0.0, value=1000.0, step=100.0)
+          tasa_input = st.number_input("Tasa de interés anual (%):", min_value=0.0, value=5.0, step=0.5)
+          tiempo_input = st.number_input("Tiempo (años):", min_value=0.0, value=1.0, step=0.5)
+          
+          if st.button("Ejecutar y Guardar"):
+              resultado = calcular_interes_simple(capital_input, tasa_input, tiempo_input)
+              
+              st.success(f"**Resultado:** El interés generado es de **${resultado:.2f}**")
+              
+              nuevo_registro = {
+                  "Función": funcion_seleccionada,
+                  "Parámetros": f"Capital: ${capital_input}, Tasa: {tasa_input}%, Años: {tiempo_input}",
+                  "Resultado": f"${resultado:.2f}"
+              }
+              st.session_state.historico = pd.concat(
+                  [st.session_state.historico, pd.DataFrame([nuevo_registro])],
+                  ignore_index=True
+              )
+      
+            # ---------------------------------------------------------
+            # MUESTRA DEL HISTÓRICO
+            # ---------------------------------------------------------
+            st.divider()
+            st.subheader(" Tabla Histórica de Resultados")
+            
+            # Widget 6: Mostrar el DataFrame en pantalla
+            st.dataframe(st.session_state.historico, use_container_width=True)
+            
+            # Opción adicional: Limpiar el historial
+            if not st.session_state.historico.empty:
+                if st.button("Limpiar Historial"):
+                    st.session_state.historico = pd.DataFrame(columns=["Función", "Parámetros", "Resultado"])
+                    st.rerun()
+      
+      
+      
+      
+      
+      
