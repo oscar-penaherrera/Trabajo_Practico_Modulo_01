@@ -176,76 +176,80 @@ elif modulo == "Ejercicio 03":
       
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 03: Formulario para Función Externa")
-
-      # Título de la aplicación
-      st.title("Funcion Rotacion de inventario")
       
-      # Descripción del ejercicio usando st.markdown()
+      # Título de la aplicación
+      st.title("Función Rotación de Inventario")
+      
+      # Descripción del ejercicio
       st.markdown("""
-      Esta aplicación permite calcular la Rotacion de inventarios. 
-      Una vez completados los campos, al presionar el botón **Agregar Producto**, los datos ingresados en el formulario se almacenan 
-       y luego se consolidaran en la tabla inferior.
+      Esta aplicación permite calcular la Rotación de Inventarios. 
+      Una vez completados los campos, al presionar el botón **Calcular y Agregar**, los datos ingresados en el formulario se procesarán 
+      y se consolidarán en la tabla inferior.
       """)
-
+      
       st.divider()
       
-      # Formulario de ingreso de datos con los widgets recomendados
+      # ---------------------------------------------------------
+      # INICIALIZACIÓN DEL HISTORIAL EN SESSION STATE
+      # ---------------------------------------------------------
+      if "historico" not in st.session_state:
+          st.session_state.historico = pd.DataFrame(
+              columns=["Costo de Ventas (PEN)", "Inv. Inicial (PEN)", "Inv. Final (PEN)", "Rotación (veces)"]
+          )
+      
+      # ---------------------------------------------------------
+      # FORMULARIO DE INGRESO DE DATOS
+      # ---------------------------------------------------------
       st.subheader("Formulario de Ingreso")
       
-      costo_ventas = st.number_input("Costo de Venta (PEN)", min_value=0.0)
-      inventario_inicial = st.number_input("Inventario Inicial (PEN)", min_value=0.0)
-      inventario_final = st.number_input("Inventario Final", min_value=0.0)
+      costo_ventas = st.number_input("Costo de Venta (PEN)", min_value=0.0, value=50000.0, step=1000.0)
+      inventario_inicial = st.number_input("Inventario Inicial (PEN)", min_value=0.0, value=10000.0, step=500.0)
+      inventario_final = st.number_input("Inventario Final (PEN)", min_value=0.0, value=15000.0, step=500.0)
       
-      # Botón para agregar un nuevo registro
-      if st.button("Calcular Rotacion"):
-          if nombre.strip() == "":
-              st.error("Por favor, ingresa el nombre del producto.")
-          elif precio <= 0:
-              st.error("El precio debe ser mayor a 0.")
+      # Botón para ejecutar la función y guardar
+      if st.button("Calcular y Agregar"):
+          # Evitar división entre cero si ambos inventarios son 0
+          if inventario_inicial == 0 and inventario_final == 0:
+              st.error("El inventario promedio no puede ser cero.")
           else:
-              # Cálculo del total
-              total = precio * cantidad
+              # Ejecutar la función importada
+              # (Asegúrate de que los parámetros coincidan con la firma de tu función)
+              try:
+                  resultado = calcular_rotacion_inventario(costo_ventas, inventario_inicial, inventario_final)
+              except TypeError:
+                  # En caso de que tu función reciba solo (costo_ventas, inventario_promedio)
+                  inv_promedio = (inventario_inicial + inventario_final) / 2
+                  resultado = calcular_rotacion_inventario(costo_ventas, inv_promedio)
       
-              # Agregar los nuevos elementos a los arrays usando np.append()
-              st.session_state.nombres = np.append(st.session_state.nombres, nombre)
-              st.session_state.categorias = np.append(
-                  st.session_state.categorias, categoria
+              # Mostrar el resultado en pantalla
+              st.success(f"**Resultado:** La rotación de inventario es de **{resultado:.2f} veces**")
+      
+              # Guardar el registro en la tabla de sesión
+              nuevo_registro = {
+                  "Costo de Ventas (PEN)": f"S/ {costo_ventas:,.2f}",
+                  "Inv. Inicial (PEN)": f"S/ {inventario_inicial:,.2f}",
+                  "Inv. Final (PEN)": f"S/ {inventario_final:,.2f}",
+                  "Rotación (veces)": round(resultado, 2)
+              }
+      
+              st.session_state.historico = pd.concat(
+                  [st.session_state.historico, pd.DataFrame([nuevo_registro])],
+                  ignore_index=True
               )
-              st.session_state.precios = np.append(st.session_state.precios, precio)
-              st.session_state.cantidades = np.append(
-                  st.session_state.cantidades, cantidad
+      
+      # ---------------------------------------------------------
+      # MOSTRAR TABLA HISTÓRICA
+      # ---------------------------------------------------------
+      st.divider()
+      st.subheader(" Histórico de Resultados")
+      
+      st.dataframe(st.session_state.historico, use_container_width=True)
+      
+      # Opción opcional para reiniciar la tabla
+      if not st.session_state.historico.empty:
+          if st.button("Limpiar Tabla"):
+              st.session_state.historico = pd.DataFrame(
+                  columns=["Costo de Ventas (PEN)", "Inv. Inicial (PEN)", "Inv. Final (PEN)", "Rotación (veces)"]
               )
-              st.session_state.totales = np.append(st.session_state.totales, total)
+              st.rerun()
       
-              st.success(f"¡Producto **'{nombre}'** agregado correctamente!")
-      
-      # Sección de visualización de datos
-      st.subheader("Tabla de Productos Registrados")
-      
-      # Verificar si hay elementos almacenados en el array de NumPy
-      if len(st.session_state.nombres) > 0:
-          # Convertir los arrays de NumPy en un DataFrame de Pandas
-          datos = {
-              "Nombre del Producto": st.session_state.nombres,
-              "Categoría": st.session_state.categorias,
-              "Precio (PEN)": st.session_state.precios,
-              "Cantidad": st.session_state.cantidades,
-              "Total (PEN)": st.session_state.totales,
-          }
-      
-          df_productos = pd.DataFrame(datos)
-      
-          # Mostrar la tabla en pantalla
-          st.dataframe(df_productos, use_container_width=True)
-      
-          # Opcional: Métricas acumuladas usando funciones de NumPy (np.sum)
-          gran_total = np.sum(st.session_state.totales)
-          total_unidades = np.sum(st.session_state.cantidades)
-      
-          col1, col2 = st.columns(2)
-          col1.metric("Total de Unidades", f"{total_unidades} unds.")
-          col2.metric("Monto Total Acumulado", f"S/ {gran_total:.2f}")
-      
-      else:
-          st.info("No hay productos registrados en la matriz de NumPy.")
-
