@@ -48,9 +48,10 @@ elif modulo == "Ejercicio 01":
           else:
               # Añadir la nueva transacción a la lista
               nueva_transaccion = {
-                  "Concepto": concepto,
-                  "Monto": monto,
-                  "Tipo": tipo
+                  "Concepto de la Transacción": concepto,
+                  "Tipo de transacción": tipo_movimiento,
+                  "Valor (PEN)": valor
+                  
               }
               st.session_state.transacciones.append(nueva_transaccion)
               st.success(f"¡Transacción '{concepto}' registrada con éxito!")
