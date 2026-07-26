@@ -176,7 +176,10 @@ elif modulo == "Ejercicio 03":
       # 1. Importar funciones
       # ---------------------------------------------------------
       
-      from libreria_funciones_proyecto1.py import 
+      from libreria_funciones_proyecto1.py import calcular_rotacion_inventario
+      
+      # Título de la aplicación
+      st.title("Función desde Librería Externa: **Rotación de Inventarios**")
       # ---------------------------------------------------------
       # INICIALIZACIÓN DEL HISTORIAL (st.session_state)
       # ---------------------------------------------------------
