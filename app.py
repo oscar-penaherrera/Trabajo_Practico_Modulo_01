@@ -95,7 +95,7 @@ elif modulo == "Ejercicio 02":
           st.session_state.totales = np.array([], dtype=float)
       
       # Título de la aplicación
-      st.title("Registro de Productos con NumPy")
+      st.title("Registro de Productosy")
       
       # Descripción del ejercicio usando st.markdown()
       st.markdown("""
