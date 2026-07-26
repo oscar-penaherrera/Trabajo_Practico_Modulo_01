@@ -79,7 +79,13 @@ elif modulo == "Ejercicio 01":
           # Visualizar la lista mediante dataframe
           st.dataframe(df, use_container_width=True)
       else:
-          st.info("No hay transacciones en la lista.")    
+          st.info("No hay transacciones en la lista.")
+
+elif modulo == "Ejercicio 02":
+
+      st.markdown("""
+      Ejercicio 02
+      """)
 
 
    
