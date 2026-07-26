@@ -32,6 +32,10 @@ elif modulo == "Ejercicio 01":
           st.session_state.transacciones = []
       
       st.title("Flujo de Caja")
+
+      st.markdown("""
+      Esta aplicación permite registrar transacciones de ingreso y salidas de dinero de una cuenta (flujo de caja) dando el saldo acumulado
+      """)
       
       # 2. Entradas de datos con los componentes solicitados
       concepto = st.text_input("Concepto de la Transacción")
