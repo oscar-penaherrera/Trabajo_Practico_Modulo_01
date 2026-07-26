@@ -1,8 +1,6 @@
 import streamlit as st
 import numpy as np
 
-st.title("Trabajo Práctico Modulo 01")
-
 col_img1, col_img2 = st.columns(2) 
 
 with col_img1:
@@ -11,10 +9,17 @@ with col_img1:
 with col_img2:
     st.image("DMC.png", width=250)
 
-st.write()
+st.title("Trabajo Práctico Modulo 01")
+st.subheader("Oscar David Penaherrera Cordova")
+st.write(
+    "Nombre del Modulo: Fundamentos de Phyton",
+    "Año:2026",
+    "Breve descripcion del proyecto: Trabajo aplicativo",
+    "Tecnologias aplicadas: Google Colab, Streamlit y Github")
+
     
 
-st.subheader("Oscar David Penaherrera Cordova")
+
 
 
 
