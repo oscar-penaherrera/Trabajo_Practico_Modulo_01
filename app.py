@@ -1,8 +1,8 @@
 import streamlit as st
 import numpy as np
 
-st.title("Proyecto Modulo 01 Fundamentals")
-st.sidebar.title("Parámetros")
+st.title("Trabajo Práctico Modulo 01")
+st.sidebar.title("Acciones")
 
 col_img1, col_img2 = st.columns(2) 
       
@@ -12,7 +12,7 @@ with col_img1:
 with col_img2:
     st.image("DMC.png", width=250)
       
-st.title("Trabajo Práctico Modulo 01")
+
 st.subheader("Oscar David Peñaherrera Cordova")
 st.write("Nombre del Modulo: Fundamentos de Phyton")
 st.write("Año:2026")
