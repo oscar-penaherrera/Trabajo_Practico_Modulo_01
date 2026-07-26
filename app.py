@@ -16,11 +16,11 @@ modulo  =  st.sidebar.selectbox("Elija un Acción",["Home","Ejercicio 01","Ejerc
 
 if modulo ==  "Home":
 
-st.subheader("Oscar David Peñaherrera Cordova")
-st.write("Nombre del Modulo: Fundamentos de Phyton")
-st.write("Año:2026")
-st.write("Breve descripción del proyecto: Trabajo aplicativo")
-st.write("Tecnologías aplicadas: Google Colab, Streamlit y Github")
+      st.subheader("Oscar David Peñaherrera Cordova")
+      st.write("Nombre del Modulo: Fundamentos de Phyton")
+      st.write("Año:2026")
+      st.write("Breve descripción del proyecto: Trabajo aplicativo")
+      st.write("Tecnologías aplicadas: Google Colab, Streamlit y Github")
 
 
 
