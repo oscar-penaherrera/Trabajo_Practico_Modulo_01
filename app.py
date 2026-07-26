@@ -178,7 +178,7 @@ elif modulo == "Ejercicio 03":
       st.set_page_config(page_title="Ejercicio 03: Formulario para Función Externa")
       
       # Título de la aplicación
-      st.title("Función Rotación de Inventario")
+      st.title("Calculadora de  Rotación de Inventario")
       
       # Descripción del ejercicio
       st.markdown("""
@@ -194,7 +194,14 @@ elif modulo == "Ejercicio 03":
       # ---------------------------------------------------------
       if "historico" not in st.session_state:
           st.session_state.historico = pd.DataFrame(
-              columns=["Costo de Ventas (PEN)", "Inv. Inicial (PEN)", "Inv. Final (PEN)", "Rotación (veces)"]
+              columns=[
+                  "Costo Ventas (PEN)", 
+                  "Inv. Inicial (PEN)", 
+                  "Inv. Final (PEN)", 
+                  "Inv. Promedio (PEN)", 
+                  "Rotación (veces)", 
+                  "Días Inventario"
+              ]
           )
       
       # ---------------------------------------------------------
@@ -208,34 +215,48 @@ elif modulo == "Ejercicio 03":
       
       # Botón para ejecutar la función y guardar
       if st.button("Calcular y Agregar"):
-          # Evitar división entre cero si ambos inventarios son 0
-          if inventario_inicial == 0 and inventario_final == 0:
-              st.error("El inventario promedio no puede ser cero.")
-          else:
-              # Ejecutar la función importada
-              # (Asegúrate de que los parámetros coincidan con la firma de tu función)
-              try:
-                  resultado = calcular_rotacion_inventario(costo_ventas, inventario_inicial, inventario_final)
-              except TypeError:
-                  # En caso de que tu función reciba solo (costo_ventas, inventario_promedio)
-                  inv_promedio = (inventario_inicial + inventario_final) / 2
-                  resultado = calcular_rotacion_inventario(costo_ventas, inv_promedio)
+          try:
+              # Llamada a la función que devuelve el diccionario
+              resultado_dict = calcular_rotacion_inventario(
+                  costo_ventas=costo_ventas,
+                  inventario_inicial=inventario_inicial,
+                  inventario_final=inventario_final
+              )
+              
+              # Extraemos los 3 valores calculados del diccionario
+              inv_promedio = resultado_dict["inventario_promedio"]
+              rotacion = resultado_dict["rotacion_inventario"]
+              dias = resultado_dict["dias_promedio_inventario"]
       
-              # Mostrar el resultado en pantalla
-              st.success(f"**Resultado:** La rotación de inventario es de **{resultado:.2f} veces**")
+              # Mostrar los 3 resultados en la interfaz web usando columnas
+              st.subheader("Resultados del Cálculo:")
+              col1, col2, col3 = st.columns(3)
+              
+              with col1:
+                  st.metric(label="Inventario Promedio", value=f"S/ {inv_promedio:,.2f}")
+              with col2:
+                  st.metric(label="Rotación de Inventario", value=f"{rotacion:.2f} veces")
+              with col3:
+                  st.metric(label="Días en Inventario", value=f"{dias:.2f} días")
       
-              # Guardar el registro en la tabla de sesión
+              # Guardar la información en el historial (DataFrame)
               nuevo_registro = {
-                  "Costo de Ventas (PEN)": f"S/ {costo_ventas:,.2f}",
+                  "Costo Ventas (PEN)": f"S/ {costo_ventas:,.2f}",
                   "Inv. Inicial (PEN)": f"S/ {inventario_inicial:,.2f}",
                   "Inv. Final (PEN)": f"S/ {inventario_final:,.2f}",
-                  "Rotación (veces)": round(resultado, 2)
+                  "Inv. Promedio (PEN)": f"S/ {inv_promedio:,.2f}",
+                  "Rotación (veces)": rotacion,
+                  "Días Inventario": dias
               }
       
               st.session_state.historico = pd.concat(
                   [st.session_state.historico, pd.DataFrame([nuevo_registro])],
                   ignore_index=True
               )
+      
+          except ValueError as e:
+              # Atrapa la excepción subida por tu función si el inventario promedio es 0
+              st.error(f"Error en los parámetros: {e}")
       
       # ---------------------------------------------------------
       # MOSTRAR TABLA HISTÓRICA
@@ -249,7 +270,13 @@ elif modulo == "Ejercicio 03":
       if not st.session_state.historico.empty:
           if st.button("Limpiar Tabla"):
               st.session_state.historico = pd.DataFrame(
-                  columns=["Costo de Ventas (PEN)", "Inv. Inicial (PEN)", "Inv. Final (PEN)", "Rotación (veces)"]
+                  columns=[
+                      "Costo Ventas (PEN)", 
+                      "Inv. Inicial (PEN)", 
+                      "Inv. Final (PEN)", 
+                      "Inv. Promedio (PEN)", 
+                      "Rotación (veces)", 
+                      "Días Inventario"
+                  ]
               )
               st.rerun()
-      
