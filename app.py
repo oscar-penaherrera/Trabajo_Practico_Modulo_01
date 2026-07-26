@@ -43,7 +43,7 @@ elif modulo == "Ejercicio 01":
       if st.button("Guardar Transacción"):
           if concepto.strip() == "":
               st.error("Por favor, escribe un concepto válido.")
-          elif monto <= 0:
+          elif valor <= 0:
               st.error("El monto debe ser mayor a 0.")
           else:
               # Añadir la nueva transacción a la lista
@@ -63,8 +63,8 @@ elif modulo == "Ejercicio 01":
           df = pd.DataFrame(st.session_state.transacciones)
       
           # Cálculo de métricas
-          ingresos = df[df["tipo_movimiento"] == "Ingreso"]["valor"].sum()
-          gastos = df[df["tipo_movimiento"] == "Gasto"]["valor"].sum()
+          ingresos = df[df["Tipo de transacción"] == "Ingreso"]["Valor (PEN)"].sum()
+          gastos = df[df["Tipo de transacción"] == "Gasto"]["Valor (PEN)"].sum()
           balance = ingresos - gastos
       
           col1, col2, col3 = st.columns(3)
