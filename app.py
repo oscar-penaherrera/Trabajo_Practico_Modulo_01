@@ -22,6 +22,8 @@ if modulo ==  "Home":
       st.write("Breve descripción del proyecto: Trabajo aplicativo")
       st.write("Tecnologías aplicadas: Google Colab, Streamlit y Github")
 
+elif modulo == "Ejercicio 01":
+  st.write("Estas en el módulo de Ejercicio 01")
 
 
    
