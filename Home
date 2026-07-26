@@ -1,3 +1,5 @@
+import stremalit as st
+
 col_img1, col_img2 = st.columns(2) 
             
       with col_img1:
@@ -12,3 +14,4 @@ col_img1, col_img2 = st.columns(2)
       st.write("Año:2026")
       st.write("Breve descripción del proyecto: Trabajo aplicativo")
       st.write("Tecnologías aplicadas: Google Colab, Streamlit y Github")
+
