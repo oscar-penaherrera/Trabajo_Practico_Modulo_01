@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 
 st.sidebar.title("Menu lateral")
 
@@ -23,7 +24,56 @@ if modulo ==  "Home":
 
       
 elif modulo == "Ejercicio 01":
-  st.write("Estas en el módulo de Ejercicio 01")
+      
+      st.set_page_config(page_title="Registro de Transacciones", page_icon="💰")
+      
+      # 1. Inicializar la lista persistente en la sesión
+      if "transacciones" not in st.session_state:
+          st.session_state.transacciones = []
+      
+      st.title("💰 Registrar Transacciones")
+      
+      # 2. Entradas de datos con los componentes solicitados
+      concepto = st.text_input("Concepto / Descripción")
+      monto = st.number_input("Monto ($)", min_value=0.0, step=1.0)
+      tipo = st.selectbox("Tipo de transacción", ["Ingreso", "Gasto"])
+      
+      # 3. Registro al hacer clic en el botón
+      if st.button("Guardar Transacción"):
+          if concepto.strip() == "":
+              st.error("Por favor, escribe un concepto válido.")
+          elif monto <= 0:
+              st.error("El monto debe ser mayor a 0.")
+          else:
+              # Añadir la nueva transacción a la lista
+              nueva_transaccion = {
+                  "Concepto": concepto,
+                  "Monto": monto,
+                  "Tipo": tipo
+              }
+              st.session_state.transacciones.append(nueva_transaccion)
+              st.success(f"¡Transacción '{concepto}' registrada con éxito!")
+      
+      # 4. Mostrar resumen y visualización
+      st.subheader("📊 Resumen")
+      
+      if len(st.session_state.transacciones) > 0:
+          df = pd.DataFrame(st.session_state.transacciones)
+      
+          # Cálculo de métricas
+          ingresos = df[df["Tipo"] == "Ingreso"]["Monto"].sum()
+          gastos = df[df["Tipo"] == "Gasto"]["Monto"].sum()
+          balance = ingresos - gastos
+      
+          col1, col2, col3 = st.columns(3)
+          col1.metric("Ingresos Total", f"${ingresos:.2f}")
+          col2.metric("Gastos Total", f"${gastos:.2f}")
+          col3.metric("Balance", f"${balance:.2f}")
+      
+          # Visualizar la lista mediante dataframe
+          st.dataframe(df, use_container_width=True)
+      else:
+          st.info("No hay transacciones en la lista.")    
 
 
    
