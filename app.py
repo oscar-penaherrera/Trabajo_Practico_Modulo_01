@@ -83,9 +83,91 @@ elif modulo == "Ejercicio 01":
 
 elif modulo == "Ejercicio 02":
 
+      # Configuración inicial de la página
+      st.set_page_config(page_title="Ejercicio 02: Formulario para registro de información")
+      
+      # 1. Inicializar los arrays de NumPy en st.session_state si no existen
+      if "nombres" not in st.session_state:
+          st.session_state.nombres = np.array([], dtype=str)
+          st.session_state.categorias = np.array([], dtype=str)
+          st.session_state.precios = np.array([], dtype=float)
+          st.session_state.cantidades = np.array([], dtype=int)
+          st.session_state.totales = np.array([], dtype=float)
+      
+      # Título de la aplicación
+      st.title("📦 Registro de Productos con NumPy")
+      
+      # Descripción del ejercicio usando st.markdown()
       st.markdown("""
-      Ejercicio 02
+      En este ejercicio se registra la información de productos utilizando **arrays de NumPy**. 
+      Al presionar el botón **Agregar Producto**, los datos ingresados en el formulario se almacenan 
+      en vectores individuales de NumPy, los cuales luego se unifican para construir y mostrar un **DataFrame actualizado**.
       """)
+      
+      st.divider()
+      
+      # Formulario de ingreso de datos con los widgets recomendados
+      st.subheader("📝 Formulario de Ingreso")
+      
+      nombre = st.text_input("Nombre del producto")
+      categoria = st.selectbox(
+          "Categoría", ["Electrónica", "Abarrotes", "Ropa", "Hogar", "Otros"]
+      )
+      precio = st.number_input("Precio unitario (PEN)", min_value=0.0, step=0.50)
+      cantidad = st.number_input("Cantidad", min_value=1, step=1)
+      
+      # Botón para agregar un nuevo registro
+      if st.button("Agregar Producto"):
+          if nombre.strip() == "":
+              st.error("Por favor, ingresa el nombre del producto.")
+          elif precio <= 0:
+              st.error("El precio debe ser mayor a 0.")
+          else:
+              # Cálculo del total
+              total = precio * cantidad
+      
+              # Agregar los nuevos elementos a los arrays usando np.append()
+              st.session_state.nombres = np.append(st.session_state.nombres, nombre)
+              st.session_state.categorias = np.append(
+                  st.session_state.categorias, categoria
+              )
+              st.session_state.precios = np.append(st.session_state.precios, precio)
+              st.session_state.cantidades = np.append(
+                  st.session_state.cantidades, cantidad
+              )
+              st.session_state.totales = np.append(st.session_state.totales, total)
+      
+              st.success(f"¡Producto **'{nombre}'** agregado correctamente!")
+      
+      # Sección de visualización de datos
+      st.subheader("📊 Tabla de Productos Registrados")
+      
+      # Verificar si hay elementos almacenados en el array de NumPy
+      if len(st.session_state.nombres) > 0:
+          # Convertir los arrays de NumPy en un DataFrame de Pandas
+          datos = {
+              "Nombre del Producto": st.session_state.nombres,
+              "Categoría": st.session_state.categorias,
+              "Precio (PEN)": st.session_state.precios,
+              "Cantidad": st.session_state.cantidades,
+              "Total (PEN)": st.session_state.totales,
+          }
+      
+          df_productos = pd.DataFrame(datos)
+      
+          # Mostrar la tabla en pantalla
+          st.dataframe(df_productos, use_container_width=True)
+      
+          # Opcional: Métricas acumuladas usando funciones de NumPy (np.sum)
+          gran_total = np.sum(st.session_state.totales)
+          total_unidades = np.sum(st.session_state.cantidades)
+      
+          col1, col2 = st.columns(2)
+          col1.metric("Total de Unidades", f"{total_unidades} unds.")
+          col2.metric("Monto Total Acumulado", f"S/ {gran_total:.2f}")
+      
+      else:
+          st.info("No hay productos registrados en la matriz de NumPy.")
 
 
    
