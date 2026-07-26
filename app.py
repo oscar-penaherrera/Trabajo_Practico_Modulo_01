@@ -11,7 +11,10 @@ with col_img1:
       
 with col_img2:
     st.image("DMC.png", width=250)
-      
+
+modulo  =  st.sidebar.selectbox("Elija un Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"])
+
+if modulo ==  "Home":
 
 st.subheader("Oscar David Peñaherrera Cordova")
 st.write("Nombre del Modulo: Fundamentos de Phyton")
