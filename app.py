@@ -172,7 +172,7 @@ elif modulo == "Ejercicio 02":
 
 elif modulo == "Ejercicio 03":   
       
-      from libreria_funiones_proyecto1.py import calcular_rotacion_inventario
+      from libreria_funciones_proyecto1.py import calcular_rotacion_inventario
       
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 03: Formulario para Función Externa")
