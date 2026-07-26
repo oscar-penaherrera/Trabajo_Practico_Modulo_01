@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 
 st.title("Trabajo Práctico Modulo 01")
-st.sidebar.title("Acciones")
+st.sidebar.title("Menu lateral")
 
 col_img1, col_img2 = st.columns(2) 
       
