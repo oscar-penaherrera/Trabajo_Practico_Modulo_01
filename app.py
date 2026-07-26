@@ -1,6 +1,9 @@
 import streamlit as st
 import numpy as np
-                              
+
+st.title("Proyecto Modulo 01 Fundamentals")
+st.sidebar.title("Parámetros")
+
 col_img1, col_img2 = st.columns(2) 
       
 with col_img1:
