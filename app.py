@@ -25,18 +25,19 @@ if modulo ==  "Home":
       
 elif modulo == "Ejercicio 01":
       
-      st.set_page_config(page_title="Registro de Transacciones", page_icon="💰")
+      st.set_page_config(page_title="Ejercicio 01:Flujo de Caja")
       
       # 1. Inicializar la lista persistente en la sesión
       if "transacciones" not in st.session_state:
           st.session_state.transacciones = []
       
-      st.title("💰 Registrar Transacciones")
+      st.title("Flujo de Caja")
       
       # 2. Entradas de datos con los componentes solicitados
-      concepto = st.text_input("Concepto / Descripción")
-      monto = st.number_input("Monto ($)", min_value=0.0, step=1.0)
-      tipo = st.selectbox("Tipo de transacción", ["Ingreso", "Gasto"])
+      concepto = st.text_input("Concepto de la Transacción")
+      tipo_movimiento = st.selectbox("Tipo de transacción", ["Ingreso", "Gasto"])
+      valor = st.number_input("Valor (PEN)", min_value=0.0, step=1.0)
+     
       
       # 3. Registro al hacer clic en el botón
       if st.button("Guardar Transacción"):
