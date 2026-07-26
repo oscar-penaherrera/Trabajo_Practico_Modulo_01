@@ -57,7 +57,7 @@ elif modulo == "Ejercicio 01":
               st.success(f"¡Transacción '{concepto}' registrada con éxito!")
       
       # 4. Mostrar resumen y visualización
-      st.subheader("📊 Resumen")
+      st.subheader("Resumen")
       
       if len(st.session_state.transacciones) > 0:
           df = pd.DataFrame(st.session_state.transacciones)
