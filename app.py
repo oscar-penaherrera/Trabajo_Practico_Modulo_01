@@ -35,6 +35,7 @@ elif modulo == "Ejercicio 01":
 
       st.markdown("""
       Esta aplicación permite registrar transacciones de ingreso y salidas de dinero de una cuenta, detallando el historial y el saldo final.
+      Para esto, se debe completar el formulario y luego seleccionar **Guardar Transacción**.
       """)
       
       # 2. Entradas de datos con los componentes solicitados
