@@ -4,7 +4,7 @@ import numpy as np
 st.sidebar.selectbox()
 st.sidebar.title("Acciones")
 
-modulo  =  st.sidebar.selectbox("Elija una Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"]
+modulo  =  st.sidebar.selectbox("Elija una Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"])
 
 if modulo ==  "Home"
                                 
