@@ -1,11 +1,7 @@
 import streamlit as st
 import numpy as np
 
-st.sidebar.selectbox()
 
-modulo  =  st.sidebar.selectbox("Elija una Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"])
-
-if modulo ==  "Home":
                                 
     col_img1, col_img2 = st.columns(2) 
     
