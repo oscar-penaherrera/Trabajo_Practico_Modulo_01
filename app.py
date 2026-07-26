@@ -1,7 +1,8 @@
 import streamlit as st
 import numpy as np
 
-col_img1, col_img2 = st.columns(2) # Esto crea dos columnas de igual ancho
+# Esto crea dos columnas de igual ancho
+col_img1, col_img2 = st.columns(2) 
 
 with col_img1:
     st.image("Python_logo.png", width=250)
