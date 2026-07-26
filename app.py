@@ -95,19 +95,19 @@ elif modulo == "Ejercicio 02":
           st.session_state.totales = np.array([], dtype=float)
       
       # Título de la aplicación
-      st.title("📦 Registro de Productos con NumPy")
+      st.title("Registro de Productos con NumPy")
       
       # Descripción del ejercicio usando st.markdown()
       st.markdown("""
-      En este ejercicio se registra la información de productos utilizando **arrays de NumPy**. 
-      Al presionar el botón **Agregar Producto**, los datos ingresados en el formulario se almacenan 
-      en vectores individuales de NumPy, los cuales luego se unifican para construir y mostrar un **DataFrame actualizado**.
+      En este ejercicio se registra la información de productos utilizando. 
+      Una vez completados los campos, presionar el botón Agregar Producto, con lo cual, los datos ingresados en el formulario se almacenan 
+       y luego se unifican.
       """)
       
       st.divider()
       
       # Formulario de ingreso de datos con los widgets recomendados
-      st.subheader("📝 Formulario de Ingreso")
+      st.subheader("Formulario de Ingreso")
       
       nombre = st.text_input("Nombre del producto")
       categoria = st.selectbox(
@@ -140,7 +140,7 @@ elif modulo == "Ejercicio 02":
               st.success(f"¡Producto **'{nombre}'** agregado correctamente!")
       
       # Sección de visualización de datos
-      st.subheader("📊 Tabla de Productos Registrados")
+      st.subheader("Tabla de Productos Registrados")
       
       # Verificar si hay elementos almacenados en el array de NumPy
       if len(st.session_state.nombres) > 0:
