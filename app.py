@@ -99,9 +99,9 @@ elif modulo == "Ejercicio 02":
       
       # Descripción del ejercicio usando st.markdown()
       st.markdown("""
-      En este ejercicio se registra la información de productos utilizando. 
-      Una vez completados los campos, presionar el botón Agregar Producto, con lo cual, los datos ingresados en el formulario se almacenan 
-       y luego se unifican.
+      Esta aplicación permite registrar información de diferntes productos. 
+      Una vez completados los campos, al presionar el botón **Agregar Producto**, los datos ingresados en el formulario se almacenan 
+       y luego se consolidaran en la tabla inferior.
       """)
       
       st.divider()
