@@ -34,7 +34,7 @@ elif modulo == "Ejercicio 01":
       st.title("Flujo de Caja")
 
       st.markdown("""
-      Esta aplicación permite registrar transacciones de ingreso y salidas de dinero de una cuenta (flujo de caja) dando el saldo acumulado
+      Esta aplicación permite registrar transacciones de ingreso y salidas de dinero de una cuenta, detallando el historial y el saldo final.
       """)
       
       # 2. Entradas de datos con los componentes solicitados
