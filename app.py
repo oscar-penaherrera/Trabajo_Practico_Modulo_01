@@ -63,14 +63,14 @@ elif modulo == "Ejercicio 01":
           df = pd.DataFrame(st.session_state.transacciones)
       
           # Cálculo de métricas
-          ingresos = df[df["Tipo"] == "Ingreso"]["Monto"].sum()
-          gastos = df[df["Tipo"] == "Gasto"]["Monto"].sum()
+          ingresos = df[df["tipo_movimiento"] == "Ingreso"]["valor"].sum()
+          gastos = df[df["tipo_movimiento"] == "Gasto"]["valor"].sum()
           balance = ingresos - gastos
       
           col1, col2, col3 = st.columns(3)
           col1.metric("Ingresos Total", f"${ingresos:.2f}")
           col2.metric("Gastos Total", f"${gastos:.2f}")
-          col3.metric("Balance", f"${balance:.2f}")
+          col3.metric("Saldo", f"${balance:.2f}")
       
           # Visualizar la lista mediante dataframe
           st.dataframe(df, use_container_width=True)
