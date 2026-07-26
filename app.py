@@ -170,8 +170,19 @@ elif modulo == "Ejercicio 02":
       else:
           st.info("No hay productos registrados en la matriz de NumPy.")
 
+elif modulo == "Ejercicio 03":   
       
+      from libreria_funiones_proyecto1.py import calcular_rotacion_inventario
       
+      # Configuración inicial de la página
+      st.set_page_config(page_title="Ejercicio 03: Formulario para Función Externa")
+
+      # Título de la aplicación
+      st.title("Funcion dias de inventario")
       
-      
-      
+      # Descripción del ejercicio usando st.markdown()
+      st.markdown("""
+      Esta aplicación permite calcular la Rotacion de inventarios. 
+      Una vez completados los campos, al presionar el botón **Agregar Producto**, los datos ingresados en el formulario se almacenan 
+       y luego se consolidaran en la tabla inferior.
+      """)
