@@ -10,11 +10,11 @@ with col_img2:
     st.image("DMC.png", width=250)
 
 st.title("Trabajo Práctico Modulo 01")
-st.subheader("Oscar David Penaherrera Cordova")
+st.subheader("Oscar David Peñaherrera Cordova")
 st.write("Nombre del Modulo: Fundamentos de Phyton")
 st.write("Año:2026")
-st.write("Breve descripcion del proyecto: Trabajo aplicativo")
-st.write("Tecnologias aplicadas: Google Colab, Streamlit y Github")
+st.write("Breve descripción del proyecto: Trabajo aplicativo")
+st.write("Tecnologías aplicadas: Google Colab, Streamlit y Github")
 
     
 
