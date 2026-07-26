@@ -241,10 +241,10 @@ elif modulo == "Ejercicio 03":
       
               # Guardar la información en el historial (DataFrame)
               nuevo_registro = {
-                  "Costo Ventas (PEN)": f"S/ {costo_ventas:,.2f}",
-                  "Inv. Inicial (PEN)": f"S/ {inventario_inicial:,.2f}",
-                  "Inv. Final (PEN)": f"S/ {inventario_final:,.2f}",
-                  "Inv. Promedio (PEN)": f"S/ {inv_promedio:,.2f}",
+                  "Costo Ventas (PEN)": f"{costo_ventas:,.2f}",
+                  "Inv. Inicial (PEN)": f"{inventario_inicial:,.2f}",
+                  "Inv. Final (PEN)": f"{inventario_final:,.2f}",
+                  "Inv. Promedio (PEN)": f"{inv_promedio:,.2f}",
                   "Rotación (veces)": rotacion,
                   "Días Inventario": dias
               }
