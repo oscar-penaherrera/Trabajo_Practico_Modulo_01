@@ -170,9 +170,11 @@ elif modulo == "Ejercicio 02":
       else:
           st.info("No hay productos registrados en la matriz de NumPy.")
 
-
+elif modulo == "Ejercicio 03":
    
-
+      st.markdown("""
+      Ejercicio 03.
+      """)
 
 
 
