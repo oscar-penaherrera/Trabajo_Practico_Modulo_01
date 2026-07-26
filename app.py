@@ -1,8 +1,11 @@
 import streamlit as st
 import numpy as np
 
-st.title("Trabajo Práctico Modulo 01")
 st.sidebar.title("Menu lateral")
+
+modulo  =  st.sidebar.selectbox("Elija un Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"])
+
+st.title("Trabajo Práctico Modulo 01")
 
 col_img1, col_img2 = st.columns(2) 
       
@@ -11,8 +14,6 @@ with col_img1:
       
 with col_img2:
     st.image("DMC.png", width=250)
-
-modulo  =  st.sidebar.selectbox("Elija un Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"])
 
 if modulo ==  "Home":
 
