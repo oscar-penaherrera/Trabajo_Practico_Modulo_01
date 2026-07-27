@@ -288,6 +288,7 @@ elif modulo == "Ejercicio 04":
     
     # Configuración inicial de la página
     st.set_page_config(page_title="Ejercicio 04: Clase Proyecto de Inversion")
+   
     # 0. Garantizar que session_state está inicializado
     if "proyectos_inv" not in st.session_state:
         st.session_state.proyectos_inv = []
@@ -303,18 +304,18 @@ elif modulo == "Ejercicio 04":
     st.divider()
     
     tab_crear, tab_leer, tab_actualizar, tab_eliminar = st.tabs(
-        ["🟢 Crear", "🔵 Leer", "🟡 Actualizar", "🔴 Eliminar"]
+        ["Crear", "Leer", "Actualizar", "Eliminar"]
     )
 
     # ---------------------------------------------------------------------
     # CREAR
     # ---------------------------------------------------------------------
     with tab_crear:
-        st.markdown("### 🟢 Crear un nuevo proyecto de inversión")
-        nombre = st.text_input("Nombre del proyecto", placeholder="Ej: Planta Solar")
+        st.markdown("### Crear un nuevo proyecto de inversión")
+        nombre = st.text_input("Nombre del proyecto")
         col1, col2 = st.columns(2)
         with col1:
-            inversion = st.number_input("Inversión inicial (S/)", min_value=0.0, value=10000.0, step=100.0)
+            inversion = st.number_input("Inversión inicial (PEN)", min_value=0.0, value=10000.0, step=100.0)
             tasa = st.number_input("Tasa de descuento (%)", min_value=0.0, max_value=100.0, value=12.0, step=0.5)
         with col2:
             flujos_texto = st.text_input(
@@ -350,7 +351,7 @@ elif modulo == "Ejercicio 04":
     # LEER
     # ---------------------------------------------------------------------
     with tab_leer:
-        st.markdown("### 🔵 Proyectos registrados")
+        st.markdown("### Proyectos registrados")
         if st.session_state.proyectos_inv:
             df = pd.DataFrame(st.session_state.proyectos_inv)
             columnas_visibles = [c for c in df.columns if not c.startswith("_")]
@@ -361,13 +362,13 @@ elif modulo == "Ejercicio 04":
             c1.metric("Proyectos registrados", len(st.session_state.proyectos_inv))
             c2.metric("Proyectos viables", viables)
         else:
-            st.info("Aún no hay proyectos registrados. Crea uno en la pestaña '🟢 Crear'.")
+            st.info("Aún no hay proyectos registrados. Crea uno en la pestaña 'Crear'.")
 
     # ---------------------------------------------------------------------
     # ACTUALIZAR
     # ---------------------------------------------------------------------
     with tab_actualizar:
-        st.markdown("### 🟡 Actualizar un proyecto existente")
+        st.markdown("### Actualizar un proyecto existente")
         if st.session_state.proyectos_inv:
             nombres = [p["proyecto"] for p in st.session_state.proyectos_inv]
             seleccionado = st.selectbox("Selecciona el proyecto a actualizar", nombres, key="upd_sel")
@@ -377,7 +378,7 @@ elif modulo == "Ejercicio 04":
             col1, col2 = st.columns(2)
             with col1:
                 nueva_inv = st.number_input(
-                    "Nueva inversión inicial (S/)", min_value=0.0, value=float(actual["_inversion"]), step=100.0, key=f"inv_{idx}"
+                    "Nueva inversión inicial (PEN)", min_value=0.0, value=float(actual["_inversion"]), step=100.0, key=f"inv_{idx}"
                 )
                 nueva_tasa = st.number_input(
                     "Nueva tasa de descuento (%)", min_value=0.0, max_value=100.0,
@@ -400,12 +401,12 @@ elif modulo == "Ejercicio 04":
                     datos["_tasa"] = nueva_tasa
                     
                     st.session_state.proyectos_inv[idx] = datos
-                    st.success(f"✅ Proyecto '{seleccionado}' actualizado correctamente.")
+                    st.success(f"Proyecto '{seleccionado}' actualizado correctamente.")
                     st.rerun() # Refresca la vista para reflejar los datos actualizados
                 except ValueError as e:
-                    st.error(f"⚠️ Error de validación: {e}")
+                    st.error(f"Error de validación: {e}")
                 except Exception as e:
-                    st.error(f"⚠️ Error: {e}")
+                    st.error(f"Error: {e}")
         else:
             st.info("No hay proyectos para actualizar.")
 
@@ -413,7 +414,7 @@ elif modulo == "Ejercicio 04":
     # ELIMINAR
     # ---------------------------------------------------------------------
     with tab_eliminar:
-        st.markdown("### 🔴 Eliminar un proyecto")
+        st.markdown("### Eliminar un proyecto")
         if st.session_state.proyectos_inv:
             nombres = [p["proyecto"] for p in st.session_state.proyectos_inv]
             a_eliminar = st.selectbox("Selecciona el proyecto a eliminar", nombres, key="del_sel")
