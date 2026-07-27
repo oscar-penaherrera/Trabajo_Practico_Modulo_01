@@ -298,124 +298,124 @@ elif modulo == "Ejercicio 04":
             
       st.divider()
       
-      # ---------------------------------------------------------------------
-    # CREAR
-    # ---------------------------------------------------------------------
-    with tab_crear:
-        st.markdown("Crear un nuevo proyecto de inversión")
-        nombre_proyecto = st.text_input("Nombre del proyecto", placeholder="Ej: Planta Solar")
-        col1, col2 = st.columns(2)
-        with col1:
-            inversion_incial = st.number_input("Inversión inicial (PEN)", min_value=0.0, value=10000.0, step=100.0)
-            tasa_descuento_pct = st.number_input("Tasa de descuento (%)", min_value=0.0, max_value=100.0, value=12.0, step=0.5)
-        with col2:
-            flujos = st.text_input(
-                "Flujos anuales (separados por coma)", value="3000, 4000, 5000, 4000"
-            )
-
-        if st.button("Crear proyecto", type="primary"):
-            try:
-                if nombre.strip() == "":
-                    st.error("El nombre del proyecto no puede estar vacío.")
-                else:
-                    # Convertimos el texto "3000, 4000" a una lista de números
-                    flujos = [float(x.strip()) for x in flujos_texto.split(",") if x.strip() != ""]
-
-                    # --- Instanciamos el OBJETO de la clase ProyectoInversion ---
-                    proyecto = ProyectoInversion(nombre.strip(), inversion, flujos, tasa)
-
-                    # El método resumen() devuelve un diccionario con los cálculos
-                    datos = proyecto.resumen()
-                    # Guardamos también los flujos y la tasa para poder actualizar luego
-                    datos["_inversion"] = inversion
-                    datos["_flujos"] = flujos
-                    datos["_tasa"] = tasa
-
-                    st.session_state.proyectos_inv.append(datos)
-                    st.success(f"✅ Proyecto '{nombre}' creado correctamente.")
-                    st.write(proyecto.resumen())
-            except ValueError as e:
-                st.error(f"⚠️ Error de validación: {e}")
-            except Exception as e:
-                st.error(f"⚠️ Error: {e}")
-
-    # ---------------------------------------------------------------------
-    # LEER
-    # ---------------------------------------------------------------------
-    with tab_leer:
-        st.markdown("### 🔵 Proyectos registrados")
-        if st.session_state.proyectos_inv:
-            # Mostramos solo las columnas visibles (ocultamos las que empiezan con "_")
-            df = pd.DataFrame(st.session_state.proyectos_inv)
-            columnas_visibles = [c for c in df.columns if not c.startswith("_")]
-            st.dataframe(df[columnas_visibles], width='stretch')
-
-            # Pequeño resumen: cuántos proyectos son viables
-            viables = sum(1 for p in st.session_state.proyectos_inv if p["decision"] == "Viable")
-            c1, c2 = st.columns(2)
-            c1.metric("Proyectos registrados", len(st.session_state.proyectos_inv))
-            c2.metric("Proyectos viables", viables)
-        else:
-            st.info("Aún no hay proyectos registrados. Crea uno en la pestaña '🟢 Crear'.")
-
-    # ---------------------------------------------------------------------
-    # ACTUALIZAR
-    # ---------------------------------------------------------------------
-    with tab_actualizar:
-        st.markdown("### 🟡 Actualizar un proyecto existente")
-        if st.session_state.proyectos_inv:
-            nombres = [p["proyecto"] for p in st.session_state.proyectos_inv]
-            seleccionado = st.selectbox("Selecciona el proyecto a actualizar", nombres, key="upd_sel")
-            idx = nombres.index(seleccionado)
-            actual = st.session_state.proyectos_inv[idx]
-
-            col1, col2 = st.columns(2)
-            with col1:
-                nueva_inv = st.number_input(
-                    "Nueva inversión inicial (S/)", min_value=0.0, value=float(actual["_inversion"]), step=100.0
-                )
-                nueva_tasa = st.number_input(
-                    "Nueva tasa de descuento (%)", min_value=0.0, max_value=100.0,
-                    value=float(actual["_tasa"]), step=0.5
-                )
-            with col2:
-                nuevos_flujos_txt = st.text_input(
-                    "Nuevos flujos (separados por coma)",
-                    value=", ".join(str(f) for f in actual["_flujos"]),
-                )
-
-            if st.button("Actualizar proyecto", type="primary"):
-                try:
-                    flujos = [float(x.strip()) for x in nuevos_flujos_txt.split(",") if x.strip() != ""]
-                    # Se vuelve a instanciar el objeto con los nuevos datos
-                    proyecto = ProyectoInversion(seleccionado, nueva_inv, flujos, nueva_tasa)
-                    datos = proyecto.resumen()
-                    datos["_inversion"] = nueva_inv
-                    datos["_flujos"] = flujos
-                    datos["_tasa"] = nueva_tasa
-                    st.session_state.proyectos_inv[idx] = datos
-                    st.success(f"✅ Proyecto '{seleccionado}' actualizado correctamente.")
-                    st.write(proyecto.resumen())
-                except ValueError as e:
-                    st.error(f"⚠️ Error de validación: {e}")
-                except Exception as e:
-                    st.error(f"⚠️ Error: {e}")
-        else:
-            st.info("No hay proyectos para actualizar.")
-
-    # ---------------------------------------------------------------------
-    # ELIMINAR
-    # ---------------------------------------------------------------------
-    with tab_eliminar:
-        st.markdown("### 🔴 Eliminar un proyecto")
-        if st.session_state.proyectos_inv:
-            nombres = [p["proyecto"] for p in st.session_state.proyectos_inv]
-            a_eliminar = st.selectbox("Selecciona el proyecto a eliminar", nombres, key="del_sel")
-            if st.button("Eliminar proyecto", type="primary"):
-                idx = nombres.index(a_eliminar)
-                st.session_state.proyectos_inv.pop(idx)
-                st.success(f"🗑️ Proyecto '{a_eliminar}' eliminado correctamente.")
-                st.rerun()
-        else:
-            st.info("No hay proyectos para eliminar.")
-
+          # ---------------------------------------------------------------------
+          # CREAR
+          # ---------------------------------------------------------------------
+          with tab_crear:
+              st.markdown("Crear un nuevo proyecto de inversión")
+              nombre_proyecto = st.text_input("Nombre del proyecto", placeholder="Ej: Planta Solar")
+              col1, col2 = st.columns(2)
+              with col1:
+                  inversion_incial = st.number_input("Inversión inicial (PEN)", min_value=0.0, value=10000.0, step=100.0)
+                  tasa_descuento_pct = st.number_input("Tasa de descuento (%)", min_value=0.0, max_value=100.0, value=12.0, step=0.5)
+              with col2:
+                  flujos = st.text_input(
+                      "Flujos anuales (separados por coma)", value="3000, 4000, 5000, 4000"
+                  )
+      
+              if st.button("Crear proyecto", type="primary"):
+                  try:
+                      if nombre.strip() == "":
+                          st.error("El nombre del proyecto no puede estar vacío.")
+                      else:
+                          # Convertimos el texto "3000, 4000" a una lista de números
+                          flujos = [float(x.strip()) for x in flujos_texto.split(",") if x.strip() != ""]
+      
+                          # --- Instanciamos el OBJETO de la clase ProyectoInversion ---
+                          proyecto = ProyectoInversion(nombre.strip(), inversion, flujos, tasa)
+      
+                          # El método resumen() devuelve un diccionario con los cálculos
+                          datos = proyecto.resumen()
+                          # Guardamos también los flujos y la tasa para poder actualizar luego
+                          datos["_inversion"] = inversion
+                          datos["_flujos"] = flujos
+                          datos["_tasa"] = tasa
+      
+                          st.session_state.proyectos_inv.append(datos)
+                          st.success(f"✅ Proyecto '{nombre}' creado correctamente.")
+                          st.write(proyecto.resumen())
+                  except ValueError as e:
+                      st.error(f"⚠️ Error de validación: {e}")
+                  except Exception as e:
+                      st.error(f"⚠️ Error: {e}")
+      
+          # ---------------------------------------------------------------------
+          # LEER
+          # ---------------------------------------------------------------------
+          with tab_leer:
+              st.markdown("### 🔵 Proyectos registrados")
+              if st.session_state.proyectos_inv:
+                  # Mostramos solo las columnas visibles (ocultamos las que empiezan con "_")
+                  df = pd.DataFrame(st.session_state.proyectos_inv)
+                  columnas_visibles = [c for c in df.columns if not c.startswith("_")]
+                  st.dataframe(df[columnas_visibles], width='stretch')
+      
+                  # Pequeño resumen: cuántos proyectos son viables
+                  viables = sum(1 for p in st.session_state.proyectos_inv if p["decision"] == "Viable")
+                  c1, c2 = st.columns(2)
+                  c1.metric("Proyectos registrados", len(st.session_state.proyectos_inv))
+                  c2.metric("Proyectos viables", viables)
+              else:
+                  st.info("Aún no hay proyectos registrados. Crea uno en la pestaña '🟢 Crear'.")
+      
+          # ---------------------------------------------------------------------
+          # ACTUALIZAR
+          # ---------------------------------------------------------------------
+          with tab_actualizar:
+              st.markdown("### 🟡 Actualizar un proyecto existente")
+              if st.session_state.proyectos_inv:
+                  nombres = [p["proyecto"] for p in st.session_state.proyectos_inv]
+                  seleccionado = st.selectbox("Selecciona el proyecto a actualizar", nombres, key="upd_sel")
+                  idx = nombres.index(seleccionado)
+                  actual = st.session_state.proyectos_inv[idx]
+      
+                  col1, col2 = st.columns(2)
+                  with col1:
+                      nueva_inv = st.number_input(
+                          "Nueva inversión inicial (S/)", min_value=0.0, value=float(actual["_inversion"]), step=100.0
+                      )
+                      nueva_tasa = st.number_input(
+                          "Nueva tasa de descuento (%)", min_value=0.0, max_value=100.0,
+                          value=float(actual["_tasa"]), step=0.5
+                      )
+                  with col2:
+                      nuevos_flujos_txt = st.text_input(
+                          "Nuevos flujos (separados por coma)",
+                          value=", ".join(str(f) for f in actual["_flujos"]),
+                      )
+      
+                  if st.button("Actualizar proyecto", type="primary"):
+                      try:
+                          flujos = [float(x.strip()) for x in nuevos_flujos_txt.split(",") if x.strip() != ""]
+                          # Se vuelve a instanciar el objeto con los nuevos datos
+                          proyecto = ProyectoInversion(seleccionado, nueva_inv, flujos, nueva_tasa)
+                          datos = proyecto.resumen()
+                          datos["_inversion"] = nueva_inv
+                          datos["_flujos"] = flujos
+                          datos["_tasa"] = nueva_tasa
+                          st.session_state.proyectos_inv[idx] = datos
+                          st.success(f"✅ Proyecto '{seleccionado}' actualizado correctamente.")
+                          st.write(proyecto.resumen())
+                      except ValueError as e:
+                          st.error(f"⚠️ Error de validación: {e}")
+                      except Exception as e:
+                          st.error(f"⚠️ Error: {e}")
+              else:
+                  st.info("No hay proyectos para actualizar.")
+      
+          # ---------------------------------------------------------------------
+          # ELIMINAR
+          # ---------------------------------------------------------------------
+          with tab_eliminar:
+              st.markdown("### 🔴 Eliminar un proyecto")
+              if st.session_state.proyectos_inv:
+                  nombres = [p["proyecto"] for p in st.session_state.proyectos_inv]
+                  a_eliminar = st.selectbox("Selecciona el proyecto a eliminar", nombres, key="del_sel")
+                  if st.button("Eliminar proyecto", type="primary"):
+                      idx = nombres.index(a_eliminar)
+                      st.session_state.proyectos_inv.pop(idx)
+                      st.success(f"🗑️ Proyecto '{a_eliminar}' eliminado correctamente.")
+                      st.rerun()
+              else:
+                  st.info("No hay proyectos para eliminar.")
+      
