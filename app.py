@@ -315,11 +315,11 @@ elif modulo == "Ejercicio 04":
         nombre = st.text_input("Nombre del proyecto")
         col1, col2 = st.columns(2)
         with col1:
-            inversion = st.number_input("Inversión inicial (PEN)", min_value=0.0, value=10000.0, step=100.0)
-            tasa = st.number_input("Tasa de descuento (%)", min_value=0.0, max_value=100.0, value=12.0, step=0.5)
+            inversion = st.number_input("Inversión inicial (PEN)", min_value=0.0,)
+            tasa = st.number_input("Tasa de descuento (%)", min_value=0.0, max_value=100.0)
         with col2:
             flujos_texto = st.text_input(
-                "Flujos anuales (separados por coma)", value="3000, 4000, 5000, 4000"
+                "Flujos anuales (separados por coma)"
             )
 
         if st.button("Crear proyecto", type="primary"):
