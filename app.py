@@ -283,7 +283,7 @@ elif modulo == "Ejercicio 03":
 
 elif modulo == "Ejercicio 04": 
 
-      from librería_clases_proyecto1 import ProyectoInversion‎
+      from libreria_clases_proyecto1 import ProyectoInversion‎
       
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 04: Clase Proyecto de Inversion")
