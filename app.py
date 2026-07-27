@@ -175,9 +175,7 @@ elif modulo == "Ejercicio 02":
           st.info("No hay productos registrados en la matriz de NumPy.")
 
 elif modulo == "Ejercicio 03":   
-      
-     
-      
+          
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 03: Formulario para Función Externa")
       
@@ -286,8 +284,7 @@ elif modulo == "Ejercicio 03":
               st.rerun()
 
 elif modulo == "Ejercicio 04": 
-
-             
+           
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 04: Clase Proyecto de Inversion")
             
@@ -296,7 +293,7 @@ elif modulo == "Ejercicio 04":
             
       # Descripción del ejercicio
       st.markdown("""
-      Esta aplicación permite calcular diferentes metricas para un proyecto de inversion dado. 
+      Esta aplicación permite calcular diferentes metricas para la evaluacion de un proyecto de inversion dado.
       """)
             
       st.divider()
