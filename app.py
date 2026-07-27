@@ -2,6 +2,10 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+from libreria_funciones_proyecto1 import calcular_rotacion_inventario
+from libreria_clases_proyecto1 import ProyectoInversion
+
+
 st.sidebar.title("Menu lateral")
 
 modulo  =  st.sidebar.selectbox("Elija un Acción",["Home","Ejercicio 01","Ejercicio 02","Ejercicio 03","Ejercicio 04"])
@@ -172,7 +176,7 @@ elif modulo == "Ejercicio 02":
 
 elif modulo == "Ejercicio 03":   
       
-      from libreria_funciones_proyecto1 import calcular_rotacion_inventario
+     
       
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 03: Formulario para Función Externa")
@@ -283,8 +287,7 @@ elif modulo == "Ejercicio 03":
 
 elif modulo == "Ejercicio 04": 
 
-      from libreria_clases_proyecto1 import ProyectoInversion‎
-            
+             
       # Configuración inicial de la página
       st.set_page_config(page_title="Ejercicio 04: Clase Proyecto de Inversion")
             
