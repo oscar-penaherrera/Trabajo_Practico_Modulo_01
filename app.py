@@ -281,8 +281,7 @@ elif modulo == "Ejercicio 03":
               )
               st.rerun()
 
-else:
-      modulo == "Ejercicio 04": 
+elif modulo == "Ejercicio 04": 
 
       from libreria_clases_proyecto1 import ProyectoInversion‎
             
